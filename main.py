@@ -7,20 +7,20 @@ class mainWindow(QtWidgets.QMainWindow):
         title = "CONNECT4"
         self.setWindowTitle(title)
 
-        # Create a central widget to hold the layout
+        #create a central widget to hold the layout
         central_widget = QtWidgets.QWidget()
         self.setCentralWidget(central_widget)
 
-        # Create a vertical layout
+        #create vertical layout
         layout = QtWidgets.QVBoxLayout()
         central_widget.setLayout(layout)
 
-        # Create a QLabel widget to display the title
+        #create QLabel widget to display the title
         title_label = QtWidgets.QLabel("Connect Four")
         title_label.setAlignment(QtCore.Qt.AlignCenter)
         layout.addWidget(title_label)
 
-        # Create a makeBoard widget and add it to the layout
+        #create a makeBoard widget and add it to the layout
         self.board = makeBoard()
         layout.addWidget(self.board)
 
