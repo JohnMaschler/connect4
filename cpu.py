@@ -46,15 +46,17 @@ def cpuChooseMove(board):
 
             #assigning a score based on the number of pieces of each player
             if cpu_count == 4:#4 in a row weighted the most
-                return 1000
-            elif cpu_count == 3 and human_count == 0:#these weights are somewhat arbitrary but generally maximize cpu and minimize human
                 return 100
-            elif cpu_count == 2 and human_count == 0:
+            elif cpu_count == 3 and human_count == 0:#these weights are somewhat arbitrary but generally maximize cpu and minimize human
                 return 10
+            elif cpu_count == 2 and human_count == 0:
+                return 1
             elif human_count == 3 and cpu_count == 0:
-                return -500
+                return -50
             elif human_count == 2 and cpu_count == 0:
-                return -100
+                return -10
+            elif human_count ==4 and cpu_count ==0:
+                return -90
             else:
                 return 0
 
@@ -99,6 +101,15 @@ def cpuChooseMove(board):
         # print(total_score)
 
         return total_score
+            # Normalize the total score to keep it in a reasonable range
+        # max_possible_score = 1000
+        # normalized_score = total_score / max_possible_score
+        # print(normalized_score)
+
+        # return normalized_score
+
+
+
 
 
     def isColumnFull(board_copy, col):#check if a column is full

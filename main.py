@@ -7,22 +7,40 @@ class mainWindow(QtWidgets.QMainWindow):
         title = "CONNECT4"
         self.setWindowTitle(title)
 
-        # Create a central widget to hold the layout
+        #create a central widget to hold the layout
         central_widget = QtWidgets.QWidget()
         self.setCentralWidget(central_widget)
 
-        # Create a vertical layout
+        #create vertical layout
         layout = QtWidgets.QVBoxLayout()
         central_widget.setLayout(layout)
 
-        # Create a QLabel widget to display the title
+
+        self.play_again_button = QtWidgets.QPushButton("Play Again")
+        self.play_again_button.clicked.connect(self.play_again)
+        # Add the "Play Again" button to the layout
+        layout.addWidget(self.play_again_button)
+        self.play_again_button.setStyleSheet('background-color: red;')
+        self.play_again_button.setVisible(False)
+
+        #create QLabel widget to display the title
         title_label = QtWidgets.QLabel("Connect Four")
         title_label.setAlignment(QtCore.Qt.AlignCenter)
         layout.addWidget(title_label)
 
-        # Create a makeBoard widget and add it to the layout
-        self.board = makeBoard()
+        #create a makeBoard widget and add it to the layout
+        self.board = makeBoard(self.play_again_button)
         layout.addWidget(self.board)
+        
+        self.setStyleSheet('background-color: lightblue;')
+
+        for row in self.board.board:
+            for button in row:
+                button.setStyleSheet("background-color: lightgray;")
+
+    def play_again(self):
+        self.board.reset_game()
+        self.play_again_button.setVisible(False)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])

@@ -3,10 +3,11 @@ import random
 from cpu import cpuChooseMove
 
 class makeBoard(QtWidgets.QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, play_again_button, parent=None):
         super(makeBoard, self).__init__(parent)
         self.current_player = 1#human player starts game
         self.game_over = False
+        self.play_again_button = play_again_button
 
         self.board = [[None for _ in range(7)] for _ in range(6)]#initialize the board
 
@@ -27,7 +28,19 @@ class makeBoard(QtWidgets.QWidget):
         self.message_label.setAlignment(QtCore.Qt.AlignCenter)
         self.gridLayout.addWidget(self.message_label, 6, 0, 1, 7)#add label to grid layout
 
-        print(type(self.board[1][1]))
+        # print(type(self.board[1][1]))
+
+    def reset_game(self):
+        #clear the game board state
+        for row in self.board:
+            for button in row:
+                button.setStyleSheet("background-color:lightgray;")
+                button.setText("")  #reset the button
+                button.setEnabled(True)
+        self.current_player=1
+        self.game_over=False
+        self.message_label.setText(f"Player {self.current_player}'s turn")
+
 
     def makeMove(self, col):#human player makes a move
         if self.current_player == 1:
@@ -88,6 +101,9 @@ class makeBoard(QtWidgets.QWidget):
                     button.setEnabled(False)
         else:#continue game
             pass
+
+        if self.game_over:
+            self.play_again_button.setVisible(True)#show button to reset game
 
 
     def checkWin(self, row, col):
